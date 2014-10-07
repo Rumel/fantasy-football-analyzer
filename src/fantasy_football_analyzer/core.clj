@@ -3,13 +3,12 @@
             [clojure.string :as string]
             [clojure.tools.logging :as log]))
 
+(def url-template
+  "http://games.espn.go.com/ffl/boxscorequick?leagueId=741108&teamId=%d&scoringPeriodId=%d&seasonId=2014&view=scoringperiod&version=quick")
+
 (defn scoreboard-url
   [team-id scoring-id]
-  (str "http://games.espn.go.com/ffl/boxscorequick?leagueId=741108&teamId="
-        team-id
-        "&scoringPeriodId="
-        scoring-id
-        "&seasonId=2014&view=scoringperiod&version=quick"))
+  (format url-template team-id scoring-id))
 
 (defn fetch-url
   "Retrieve the html from a url"
