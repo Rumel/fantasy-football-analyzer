@@ -106,13 +106,21 @@
 (defn get-flex-points
   "Get all the points for the flex"
   [structure num-flex]
-  (reduce +
-    (take num-flex
-      (reverse
-        (sort
-          (flatten [(drop 2 (get-sorted structure :rb))
-                    (drop 2 (get-sorted structure :wr))
-                    (drop 1 (get-sorted structure :te))]))))))
+  (->> (flatten [(drop 2 (get-sorted structure :rb))
+                 (drop 2 (get-sorted structure :wr))
+                 (drop 1 (get-sorted structure :te))])
+        sort
+        reverse
+        (take num-flex)
+        (reduce +)))
+
+  ; (reduce +
+  ;   (take num-flex
+  ;     (reverse
+  ;       (sort
+  ;         (flatten [(drop 2 (get-sorted structure :rb))
+  ;                   (drop 2 (get-sorted structure :wr))
+  ;                   (drop 1 (get-sorted structure :te))]))))))
 
 
 (defn get-optimized-points
