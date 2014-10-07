@@ -1,6 +1,7 @@
 (ns fantasy-football-analyzer.core
   (:require [net.cgrand.enlive-html :as html]
-             [clojure.string :as string]))
+            [clojure.string :as string]
+            [clojure.tools.logging :as log]))
 
 (defn scoreboard-url
   [team-id scoring-id]
@@ -13,7 +14,7 @@
 (defn fetch-url
   "Retrieve the html from a url"
   [url]
-  (println "Fetched")
+  (log/info "Fetched")
   (html/html-resource (java.net.URL. url)))
 
 (def ^:dynamic scoreboard (fetch-url (scoreboard-url 1 1)))
