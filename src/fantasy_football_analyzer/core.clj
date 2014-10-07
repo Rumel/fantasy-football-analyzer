@@ -114,14 +114,6 @@
         (take num-flex)
         (reduce +)))
 
-  ; (reduce +
-  ;   (take num-flex
-  ;     (reverse
-  ;       (sort
-  ;         (flatten [(drop 2 (get-sorted structure :rb))
-  ;                   (drop 2 (get-sorted structure :wr))
-  ;                   (drop 1 (get-sorted structure :te))]))))))
-
 
 (defn get-optimized-points
   "Get the optimized team points"
