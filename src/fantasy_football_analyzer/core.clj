@@ -13,7 +13,6 @@
 (defn fetch-url
   "Retrieve the html from a url"
   [url]
-  (log/info "Fetched")
   (html/html-resource (java.net.URL. url)))
 
 (def ^:dynamic scoreboard (fetch-url (scoreboard-url 1 1)))
@@ -105,14 +104,11 @@
 (defn get-flex-points
   "Get all the points for the flex"
   [structure num-flex]
-  (->> (flatten [(drop 2 (get-sorted structure :rb))
-                 (drop 2 (get-sorted structure :wr))
-                 (drop 1 (get-sorted structure :te))])
+  (->> (flatten (map #(drop %1 (get-sorted structure %2)) [2 2 1] [:rb :wr :te]))
         sort
         reverse
         (take num-flex)
         (reduce +)))
-
 
 (defn get-optimized-points
   "Get the optimized team points"
@@ -148,10 +144,7 @@
 (defn print-team-stats
   "Print it all out"
   []
-  (println (get-team-name))
-  (println (get-optimized-points))
-  (println (get-actual-points))
-  (println (get-coaching-percentage)))
+  (println (str (get-team-name) ", " (get-actual-points) ", " (get-optimized-points) ", " (get-coaching-percentage))))
 
 (defn print-team-for-week
   "Print team for week"
