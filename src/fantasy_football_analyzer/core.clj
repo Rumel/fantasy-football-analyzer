@@ -113,14 +113,11 @@
 (defn get-optimized-points
   "Get the optimized team points"
   []
-  (let [players (get-all-players)]
-    (+ (get-points-for-position players :qb 1)
-       (get-points-for-position players :rb 2)
-       (get-points-for-position players :wr 2)
-       (get-points-for-position players :te 1)
-       (get-points-for-position players :d/st 1)
-       (get-points-for-position players :k 1)
-       (get-flex-points players 1))))
+  (let [players (get-all-players)
+        positions [:qb :rb :wr :te :d/st :k]
+        position-nums [1 2 2 1 1 1]]
+    (reduce + 0
+      (conj (map #(get-points-for-position players %1 %2) positions position-nums) (get-flex-points players 1)))))
 
 (defn get-actual-points
   "Get the actual points scored"
